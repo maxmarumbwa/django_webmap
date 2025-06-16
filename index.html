@@ -20,6 +20,7 @@
     <h1>Welcome to GeoProject</h1>
     <div id="map"></div>
     <div class="coordinates"></div>
+    <button class="print-map">Print map</button>
 
     <button onclick="fullScreenview()"> View full screen </button>
 </body>
@@ -52,8 +53,12 @@
     map.on('mousemove', function (e) {
         console.log(e)
         $('.coordinates').html(`Lat: ${e.latlng.lat} Lng: ${e.latlng.lng}`)
-    }
+    })
 
-    )
+    // Print map
+    $('.print-map').click(function () {
+        window.print();
+
+    })
 
 </script>
