@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GeoProject</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+</head>
+
+<style>
+    #map {
+        height: 400px;
+        width: 100%;
+    }
+</style>
+
+<body>
+    <h1>Welcome to GeoProject</h1>
+    <div id="map"></div>
+    <div class="coordinates"></div>
+
+    <button onclick="fullScreenview()"> View full screen </button>
+</body>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn-script.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+</html>
+
+<script>
+    // Initialize the map
+    var map = L.map('map').setView([-19.4657, 29.8124], 12);
+    // Add a tile layer
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+    var marker = L.marker([-19.4657, 29.8124]).addTo(map);
+    marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+
+    // Add scale control
+    L.control.scale({ position: 'bottomright' }).addTo(map);
+
+    // View full screen
+    mapId = document.getElementById('map');
+    function fullScreenview() {
+        mapId.requestFullscreen()
+    }
+
+    // Map coordinates display function
+    map.on('mousemove', function (e) {
+        console.log(e)
+    }
+
+    )
+
+</script>
