@@ -26,6 +26,7 @@
 </body>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdn-script.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="./lib/leaflet.browser.print.min.js"></script>
 
 </html>
 
@@ -58,7 +59,9 @@
     // Print map
     $('.print-map').click(function () {
         window.print();
-
     })
+
+    L.control.browserPrint().addTo(map);
+    // L.control.browserPrint({ position: 'topleft', title: 'Print ...' }).addTo(map);
 
 </script>
