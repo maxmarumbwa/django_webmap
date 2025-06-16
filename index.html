@@ -51,6 +51,7 @@
     // Map coordinates display function
     map.on('mousemove', function (e) {
         console.log(e)
+        $('.coordinates').html(`Lat: ${e.latlng.lat} Lng: ${e.latlng.lng}`)
     }
 
     )
