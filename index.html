@@ -23,16 +23,21 @@
     <button class="print-map">Print map</button>
 
     <button onclick="fullScreenview()"> View full screen </button>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn-script.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="./lib/leaflet.browser.print.min.js"></script>
+    <script src="./lib/leaflet-measure.js"></script>
 </body>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://cdn-script.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="./lib/leaflet.browser.print.min.js"></script>
+
 
 </html>
 
 <script>
     // Initialize the map
-    var map = L.map('map').setView([-19.4657, 29.8124], 12);
+    var map = L.map('map', {
+        measureControl: true
+    }).setView([-19.4657, 29.8124], 12);
     // Add a tile layer
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
@@ -61,7 +66,13 @@
         window.print();
     })
 
-    L.control.browserPrint().addTo(map);
+    // L.control.browserPrint().addTo(map);
     // L.control.browserPrint({ position: 'topleft', title: 'Print ...' }).addTo(map);
+    map.printControl = L.control.browserPrint({
+        position: 'topleft',
+        title: 'Farai Print map view',
+        printModes: ["Portrait", "Landscape", "Auto", "Custom"]
+    }).addTo(map);
+
 
 </script>
