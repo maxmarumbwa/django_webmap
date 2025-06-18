@@ -6,12 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>GeoProject</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="./lib/MarkerCluster.css">
+    <link rel="stylesheet" href="./lib/MarkerCluster.Default.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
 
 </head>
 
 <style>
     #map {
-        height: 400px;
+        height: 600px;
         width: 100%;
     }
 </style>
@@ -24,27 +27,44 @@
 
     <button onclick="fullScreenview()"> View full screen </button>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://cdn-script.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="./lib/leaflet.browser.print.min.js"></script>
-    <script src="./lib/leaflet-measure.js"></script>
+
 </body>
 
 
 </html>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn-script.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="./lib/leaflet.browser.print.min.js"></script>
+<script src="./lib/leaflet-measure.js"></script>
+<script src="./test.js"></script>
+<script src="/lib/leaflet.markercluster.js"></script>
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
 <script>
     // Initialize the map
     var map = L.map('map', {
         measureControl: true
-    }).setView([-19.4657, 29.8124], 12);
+    }).setView([-17.853657, 31.03434], 9);
     // Add a tile layer
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
-    var marker = L.marker([-19.4657, 29.8124]).addTo(map);
-    marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+    var watercolor = L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.{ext}', {
+        minZoom: 1,
+        maxZoom: 16,
+        attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://www.stamen.com/" target="_blank">Stamen Design</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        ext: 'jpg'
+    });
+    var st = L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}{r}.{ext}', {
+        minZoom: 0,
+        maxZoom: 20,
+        attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://www.stamen.com/" target="_blank">Stamen Design</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        ext: 'png'
+    });
+
+    var singleMarker = L.marker([-17.853657, 31.03434]);
+    singleMarker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
 
     // Add scale control
     L.control.scale({ position: 'bottomright' }).addTo(map);
@@ -74,5 +94,36 @@
         printModes: ["Portrait", "Landscape", "Auto", "Custom"]
     }).addTo(map);
 
+    // Measure
+    L.control.measure({
+        primaryLengthUnit: 'kilometers',
+        secondaryLengthUnit: 'meter',
+        primaryAreaUnit: 'sqmeters'
+
+    })
+
+    // Geojson data load
+    // L.geoJSON(data).addTo(map);
+
+    // Geojson cluster markers
+    var marker = L.markerClusterGroup()
+    var harare = L.geoJSON(data)
+    harare.addTo(marker)
+    marker.addTo(map)
+
+    // Leaflet search
+    new L.Control.Geocoder().addTo(map);
+
+    // leaflet layer control
+    var baseMaps = {
+        'OSM': osm,
+        'Water': watercolor,
+        'st': st
+    }
+    var overlayMaps = {
+        'Geojson Markers': marker,
+        'single marker': singleMarker
+    }
+    L.control.layers(baseMaps, overlayMaps).addTo(map)
 
 </script>
