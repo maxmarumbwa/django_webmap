@@ -34,14 +34,6 @@
 
 
 
-    // Measure
-    L.control.measure({
-        primaryLengthUnit: 'kilometers',
-        secondaryLengthUnit: 'meter',
-        primaryAreaUnit: 'sqmeters'
-
-    })
-
     // Geojson data load
     // L.geoJSON(data).addTo(map);
 
@@ -61,5 +53,5 @@
         'Geojson Markers': marker,
         'single marker': singleMarker
     }
-    L.control.layers(baseMaps, overlayMaps).addTo(map)
+    L.control.layers(baseMaps, overlayMaps,{collapsed:false, position:'topleft' }).addTo(map)
 

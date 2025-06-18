@@ -1,21 +1,31 @@
+    
+        // View full screen
+    var mapId = document.getElementById('map');
+    function fullScreenview() {
+        if(document.fullscreenElement){
+            document.exitFullscreen()
+        }else{
+            mapId.requestFullscreen()
+        }
+    }   
+    
     // View full screen
     mapId = document.getElementById('map');
     function fullScreenview() {
         mapId.requestFullscreen()
     }
 
-        // Print map
-    $('.print-map').click(function () {
-        window.print();
-    })
 
     // L.control.browserPrint().addTo(map);
     // L.control.browserPrint({ position: 'topleft', title: 'Print ...' }).addTo(map);
-    map.printControl = L.control.browserPrint({
-        position: 'topleft',
-        title: 'Farai Print map view',
-        printModes: ["Portrait", "Landscape", "Auto", "Custom"]
-    }).addTo(map);
+    L.control.browserPrint({position:'topright'}).addTo(map);
+
+    // Measure
+    L.control.measure({
+        primaryLengthUnit: 'kilometers',
+        secondaryLengthUnit: 'meter',
+        primaryAreaUnit: 'sqmeters'
+    })
 
         // Leaflet search
     new L.Control.Geocoder().addTo(map);
@@ -31,4 +41,4 @@
 
 
 
-    
+

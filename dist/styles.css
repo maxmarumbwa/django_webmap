@@ -1,5 +1,5 @@
     #map {
-        height: 600px;
+        height: calc(100vh - 56px);
         width: 100%;
     }
 
@@ -12,4 +12,23 @@
         background-color: aqua;
         border: 1px solid black;
         border-radius: 5%;
+    }
+
+    .full-screen {
+        padding: 5px;
+        background-color: white;
+        position: absolute;
+        right: 10px;
+        top: 200px;
+        border: black;
+    }
+
+    .zoom-to-layer {
+        padding: 5px;
+        background-color: white;
+        position: absolute;
+        right: 10px;
+        top: 240px;
+        border: black;
+
     }
