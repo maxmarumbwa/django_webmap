@@ -17,15 +17,18 @@
 
 <body>
     <h1>Welcome to GeoProject</h1>
-    <div id="map"></div>
-    <div class="coordinates"></div>
+    <div id="map">
+        <div class="leaflet-control map-coordinate">
+            <div class="coordinates"></div>
+        </div>
+    </div>
+
     <button class="print-map">Print map</button>
 
     <button onclick="fullScreenview()"> View full screen </button>
 
 
 </body>
-
 
 </html>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -37,7 +40,3 @@
 <script src="./test.js"></script>
 <script src="dist/main.js"></script>
 <script src="dist/web-gis.js"></script>
-
-<script>
-
-</script>
