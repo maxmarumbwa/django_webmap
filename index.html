@@ -26,6 +26,7 @@
     <button class="print-map">Print map</button>
 
     <button onclick="fullScreenview()"> View full screen </button>
+    <button class="zoom-to-layer">Zoom to layer</button>
 
 
 </body>
@@ -118,12 +119,17 @@
     var baseMaps = {
         'OSM': osm,
         'Water': watercolor,
-        'st': st
+        'Stamen': st
     }
     var overlayMaps = {
         'Geojson Markers': marker,
         'single marker': singleMarker
     }
     L.control.layers(baseMaps, overlayMaps).addTo(map)
+
+    // Zoom to layer
+    $('.zoom-to-layer').click(function () {
+        map.setView([-17.853657, 31.03434], 9);
+    });
 
 </script>
